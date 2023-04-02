@@ -1,6 +1,8 @@
 <form action="/register" method="POST">
+
 <?php
-require_once 'controllers/UserController.php';
+require_once __DIR__ . '/../controllers/UserController.php';
+
 
 $action = isset($_GET['action']) ? $_GET['action'] : '';
 
@@ -64,7 +66,7 @@ switch($action) {
         break;
     default:
         // Afficher la page d'accueil
-        require_once 'views/home.php';
+        require_once 'home.php';
         break;
 }
 ?>
@@ -78,6 +80,9 @@ switch($action) {
     <label for="password">Mot de passe</label>
     <input type="password" id="password" name="password" required>
     <br>
+    <label for="password-confirm">Confirmer le mot de passe</label>
+    <input type="password" id="password-confirm" name="password-confirm" required>
+    </br>
     <label for="firstname">Prénom</label>
     <input type="text" id="firstname" name="firstname" required>
     <br>

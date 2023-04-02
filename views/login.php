@@ -1,6 +1,6 @@
 <?php
 // Inclure le fichier d'en-tête
-require_once 'views/header.php';
+require_once 'header.php';
 ?>
 
 <h1>Page de connexion</h1>
@@ -18,11 +18,13 @@ if (isset($errorMessage)) {
     <input type="text" id="username" name="username"><br>
     <label for="password">Mot de passe :</label>
     <input type="password" id="password" name="password"><br>
+    <label for="email">Adresse email</label>
+    <input type="email" id="email" name="email" required></br>
     <input type="submit" value="Se connecter">
 </form>
 
 <p>Pas encore inscrit ? <a href="index.php?action=register">Inscrivez-vous ici</a>.</p>
 <?php
 // Inclure le fichier de pied de page
-require_once 'views/footer.php';
+require_once 'footer.php';
 ?>

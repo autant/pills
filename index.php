@@ -1,14 +1,22 @@
 <?php
 
+// Démarrer la session
+session_start();
+
 require_once 'controllers/UserController.php';
 
 $action = isset($_GET['action']) ? $_GET['action'] : 'login';
 
 switch($action) {
     case 'login':
-        // Afficher la page de connexion
-        require_once 'views/login.php';
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $userController = new UserController();
+            $userController->login($_POST['email'], $_POST['password']);
+        } else {
+            require_once 'views/login.php';
+        }
         break;
+    
     case 'register':
         // Traitement de l'inscription
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -46,7 +54,15 @@ switch($action) {
             if (count($errors) === 0) {
                 // Tous les champs sont valides, on peut créer le compte utilisateur
                 $userController = new UserController();
-                $userController->register($email, $pseudo, $password, $firstname, $lastname, $ddn);
+                $userController->register(
+                    $_POST['email'],
+                    $_POST['pseudo'],
+                    $_POST['password'],
+                    $_POST['firstname'],
+                    $_POST['lastname'],
+                    $_POST['ddn']
+                );
+                
             } else {
                 // Affichage des erreurs
                 require_once 'views/register.php';
@@ -56,17 +72,31 @@ switch($action) {
             require_once 'views/register.php';
         }
         break;
+        
     
     case 'logout':
         // Déconnexion de l'utilisateur
-        session_start();
         session_unset();
         session_destroy();
         header('Location: index.php');
         break;
+
+    case 'home':
+        // Vérifier si l'utilisateur est connecté
+        if (!isset($_SESSION['user'])) {
+            // L'utilisateur n'est pas connecté, rediriger vers la page de connexion
+            header('Location: index.php?action=login');
+            exit();
+        }
+        // L'utilisateur est connecté, afficher la page d'accueil
+        require_once 'views/home.php';
+        break;
+        
+    
     default:
         // Afficher la page d'accueil
         require_once 'views/home.php';
         break;
 }
 
+?>
