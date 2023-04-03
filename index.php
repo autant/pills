@@ -1,21 +1,28 @@
 <?php
 
+// Démarrer la session
+session_start();
+
 require_once 'controllers/UserController.php';
 
 $action = isset($_GET['action']) ? $_GET['action'] : 'login';
 
 switch($action) {
     case 'login':
-        // Afficher la page de connexion
-        require_once 'views/login.php';
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $userController = new UserController();
+            $userController->login($_POST['email'], $_POST['password']);
+        } else {
+            require_once 'views/login.php';
+        }
         break;
+    
     case 'register':
         // Afficher la page d'inscription
         require_once 'views/register.php';
         break;
     case 'logout':
         // Déconnexion de l'utilisateur
-        session_start();
         session_unset();
         session_destroy();
         header('Location: index.php');

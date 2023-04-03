@@ -93,6 +93,9 @@ switch($action) {
     <label for="password">Mot de passe</label>
     <input type="password" id="password" name="password" required>
     <br>
+    <label for="password-confirm">Confirmer le mot de passe</label>
+    <input type="password" id="password-confirm" name="password-confirm" required>
+    </br>
     <label for="firstname">Prénom</label>
     <input type="text" id="firstname" name="firstname" required>
     <br>
