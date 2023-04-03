@@ -2,10 +2,12 @@
 
 <?php
 
-require_once 'models/UserModel.php';
+require_once './models/UserModel.php';
+
 require_once 'config/Database.php';
 
-$userModel = new UserModel();
+$userModel = new UserModel(null, '', '', '', '', '', '');
+
 
 $action = isset($_GET['action']) ? $_GET['action'] : '';
 
@@ -13,10 +15,11 @@ switch($action) {
     case 'login':
         // Afficher la page de connexion
         require_once './views/login.php';
+
         break;
     case 'register':
         // Traitement de l'inscription
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        if (!empty($_POST['pseudo'])) {
             $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
             $pseudo = trim($_POST['pseudo']);
             $password = $_POST['password'];
@@ -63,7 +66,7 @@ switch($action) {
             }
         } else {
             // Afficher la page d'enregistrement
-            require_once './views/login.php';
+            require_once './views/register.php';
         }
         break;
     case 'logout':
@@ -99,4 +102,5 @@ switch($action) {
     <label for="ddn">Date de naissance</label>
     <input type="date" id="ddn" name="ddn" required>
     <br>
-    <button type="submit">
+    <button type="submit">S'inscrire</button>
+

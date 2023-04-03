@@ -1,6 +1,6 @@
 <?php
 
-require_once 'models/UserModel.php';
+require_once './models/UserModel.php';
 
 class UserController {
 
@@ -21,17 +21,15 @@ class UserController {
         }
     }
     public function getUserByUsername($username) {
-        // Se connecter à la base de données
-        $db = new PDO('mysql:host=localhost;dbname=pills', 'root', '');
+        $db = Database::getInstance()->getConnection();
     
-        // Exécuter la requête SQL
         $stmt = $db->prepare('SELECT * FROM utilisateur WHERE pseudo = :username');
         $stmt->bindParam(':username', $username);
         $stmt->execute();
         $user = $stmt->fetch(PDO::FETCH_OBJ);
     
-        // Renvoyer l'utilisateur correspondant ou null si l'utilisateur n'existe pas
         return $user ? $user : null;
     }
+    
     
 }
