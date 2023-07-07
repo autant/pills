@@ -6,7 +6,8 @@ class UserController {
 
     public function register() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['email'])) {
-            $userModel = new UserModel();
+            $userModel = new UserModel(null, 'monemail@mail.com', 'monpseudo', 'monmotdepasse', 'Mon', 'Nom', '2000-01-01');
+
             $userModel->setEmail($_POST['email']);
             $userModel->setPseudo($_POST['pseudo']);
             $userModel->setPassword(password_hash($_POST['password'], PASSWORD_DEFAULT));
@@ -31,5 +32,25 @@ class UserController {
         return $user ? $user : null;
     }
     
+    public function login($pseudo, $password) {
+        $db = Database::getInstance();
+        $user = new UserModel($db);
+
+        $userData = $user->getUserByPseudo($pseudo);
+    
+        if ($userData && password_verify($password, $userData['password'])) {
+            // L'utilisateur existe et le mot de passe est correct, connecter l'utilisateur en créant une variable de session
+            session_start();
+            $_SESSION['user_pseudo'] = $userData['id'];
+    
+            // Rediriger l'utilisateur vers la page d'accueil
+            header('Location: index.php?action=home');
+            exit;
+        } else {
+            // Le nom d'utilisateur ou le mot de passe est incorrect, afficher un message d'erreur
+            $errorMessage = 'Email ou mot de passe incorrect';
+            echo $errorMessage;
+        }
+    }
     
 }

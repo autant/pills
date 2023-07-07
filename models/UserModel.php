@@ -16,14 +16,8 @@ class UserModel {
     private $ddn;
 
 
-    public function __construct($id, $email, $pseudo, $password, $firstname, $lastname,$ddn) {
-        $this->id= $id;
-        $this->email= $email;
-        $this->pseudo= $pseudo;
-        $this->password= $password;
-        $this->firstname= $firstname;
-        $this->lastname= $lastname;
-        $this->ddn= $ddn;
+    public function __construct($db) {
+        $this->db = $db;
     }
     
     public function getId() { 
@@ -92,11 +86,13 @@ class UserModel {
         } else {
             return null;
         }
+        
     }
 
     public function getUserByEmail($email) {
+        $db = Database::getInstance()->getConnection();
         $query = "SELECT * FROM utilisateur WHERE email = :email";
-        $stmt = $this->db->prepare($query);
+        $stmt = $db->prepare($query);
         $stmt->bindParam(':email', $email);
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);

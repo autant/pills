@@ -11,9 +11,11 @@ if (isset($_POST['submit'])) {
 
     // Vérifier si l'utilisateur existe dans la base de données
     $user = UserModel::getUserco($pseudo, $password);
+    var_dump($user);
     if ($user && password_verify($password, $user->getPassword())) {
         // L'utilisateur existe et le mot de passe est correct, connecter l'utilisateur en créant une variable de session
         session_start();
+        var_dump($_SESSION);
         $_SESSION['user_id'] = $user->getId();
     
         // Rediriger l'utilisateur vers la page d'accueil
