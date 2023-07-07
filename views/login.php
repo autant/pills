@@ -1,26 +1,27 @@
 <?php
 // Inclure le fichier d'en-tête
 require_once 'header.php';
+session_start();
 
 // Vérifier si le formulaire de connexion a été soumis
 if (isset($_POST['submit'])) {
-    echo "ok tout marche";
     // Récupérer les données de connexion du formulaire
     $pseudo = $_POST['pseudo'];
     $password = $_POST['password'];
 
     // Vérifier si l'utilisateur existe dans la base de données
     $user = UserModel::getUserco($pseudo, $password);
-    var_dump($user);
+    error_log(print_r($user, true));  // Log the user object
+
     if ($user && password_verify($password, $user->getPassword())) {
         // L'utilisateur existe et le mot de passe est correct, connecter l'utilisateur en créant une variable de session
         session_start();
-        var_dump($_SESSION);
+
         $_SESSION['user_id'] = $user->getId();
     
         // Rediriger l'utilisateur vers la page d'accueil
         header('Location: index.php?action=home');
-        exit;
+
     } else {
         // Le nom d'utilisateur ou le mot de passe est incorrect, afficher un message d'erreur
         $errorMessage = 'Nom d\'utilisateur ou mot de passe incorrect';
@@ -29,7 +30,7 @@ if (isset($_POST['submit'])) {
         } else if (!password_verify($password, $user->getPassword())) {
             $errorMessage = 'Mot de passe incorrect';
         }
-        echo $errorMessage;
+
     }
 }
 ?>

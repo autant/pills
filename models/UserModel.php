@@ -65,7 +65,17 @@ class UserModel {
         return $stmt->execute();
     }
     
-
+    public function getUserByUsername($username) {
+        $db = Database::getInstance()->getConnection();
+    
+        $stmt = $db->prepare('SELECT * FROM utilisateur WHERE pseudo = :username');
+        $stmt->bindParam(':username', $username);
+        $stmt->execute();
+        $user = $stmt->fetch(PDO::FETCH_OBJ);
+    
+        return $user ? $user : null;
+    }
+    
     public function getUserByPseudo($pseudo) {
         $query = "SELECT * FROM utilisateur WHERE pseudo = :pseudo";
         $stmt = Database::getInstance()->getConnection()->prepare($query);

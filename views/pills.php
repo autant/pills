@@ -1,5 +1,6 @@
 <?php
 // views/todo.php
+session_start();
 ?>
 
 <!DOCTYPE html>

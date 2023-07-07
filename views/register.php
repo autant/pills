@@ -59,7 +59,9 @@ switch($action) {
                 $userModel->setLastname($lastname);
                 $userModel->setDdn($ddn);
                 $result = $userModel->createUser();
-                var_dump($result);
+
+                header('Location: index.php');
+               
             } else {
                 // Affichage des erreurs
                 require_once './views/register.php';

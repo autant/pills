@@ -21,17 +21,7 @@ class UserController {
             require_once './views/register.php';
         }
     }
-    public function getUserByUsername($username) {
-        $db = Database::getInstance()->getConnection();
-    
-        $stmt = $db->prepare('SELECT * FROM utilisateur WHERE pseudo = :username');
-        $stmt->bindParam(':username', $username);
-        $stmt->execute();
-        $user = $stmt->fetch(PDO::FETCH_OBJ);
-    
-        return $user ? $user : null;
-    }
-    
+
     public function login($pseudo, $password) {
         $db = Database::getInstance();
         $user = new UserModel($db);
