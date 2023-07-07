@@ -4,6 +4,8 @@
 
 
 require_once 'controllers/UserController.php';
+require_once 'views/pills.php';
+
 
 $action = isset($_GET['action']) ? $_GET['action'] : 'login';
 
@@ -29,10 +31,11 @@ switch($action) {
         session_start();
         if (isset($_SESSION['user_id'])) {
             // L'utilisateur est authentifié, on peut afficher la page d'accueil
-             require_once 'views/home.php';
+            
+            header('Location: ./views/pills.php');
         } else {
             // L'utilisateur n'est pas authentifié, on redirige vers la page de connexion
-            header('Location: index.php?action=login');
+            header('Location: login.php');
 
         }
         break;

@@ -23,3 +23,5 @@ require_once'header.php';
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<h1>test</h1>
+</body>

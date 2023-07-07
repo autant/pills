@@ -1,6 +1,7 @@
 <?php
 // Inclure le fichier d'en-tête
 require_once 'header.php';
+require_once 'config/Database.php';
 session_start();
 
 // Vérifier si le formulaire de connexion a été soumis
@@ -32,6 +33,8 @@ if (isset($_POST['submit'])) {
         }
 
     }
+
+    
 }
 ?>
 
