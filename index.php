@@ -4,14 +4,14 @@
 
 
 require_once 'controllers/UserController.php';
-require_once 'views/pills.php';
+
 
 
 $action = isset($_GET['action']) ? $_GET['action'] : 'login';
 
 switch($action) {
     case 'login':
-        session_start();
+        //session_start();
         if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') {
             $userController = new UserController();
             $userController->login($_POST['pseudo'], $_POST['password']);
@@ -27,15 +27,20 @@ switch($action) {
         break;
 
     case 'home':
+       
+
         // Vérification de l'authentification de l'utilisateur
         session_start();
+        
         if (isset($_SESSION['user_id'])) {
             // L'utilisateur est authentifié, on peut afficher la page d'accueil
+            require_once 'views/pills.php';
+            header('Location: views/pills.php');
+
             
-            header('Location: ./views/pills.php');
         } else {
             // L'utilisateur n'est pas authentifié, on redirige vers la page de connexion
-            header('Location: login.php');
+            header('Location: index.php');
 
         }
         break;

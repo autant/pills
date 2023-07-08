@@ -4,6 +4,8 @@ session_start();
 
 require_once './models/pillsmodel.php';
 require_once './controllers/pillscontroleur.php';
+require_once 'pills.php';
+
 
 $pdo = new PDO('mysql:host=localhost;dbname=pills', 'root', '');
 $model = new PillsModel($pdo);
@@ -11,7 +13,7 @@ $controller = new PillsController($model);
 
 $controller->display();
 
-require_once'header.php';
+require_once 'header.php';
 ?>
 
 <!DOCTYPE html>
@@ -23,5 +25,5 @@ require_once'header.php';
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<h1>test</h1>
+<h1>ceci est un test</h1>
 </body>
