@@ -1,8 +1,7 @@
 <?php
 // Inclure le fichier d'en-tête
 require_once 'header.php';
-require_once 'config/Database.php';
-
+require_once './src/Database.php';
 
 
 // Vérifier si le formulaire de connexion a été soumis

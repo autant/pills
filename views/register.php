@@ -2,9 +2,9 @@
 
 <?php
 
-require_once './models/UserModel.php';
+require_once '../models/UserModel.php';
 
-require_once 'config/Database.php';
+require_once './src/Database.php';
 
 $userModel = new UserModel(null, '', '', '', '', '', '');
 

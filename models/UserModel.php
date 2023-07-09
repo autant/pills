@@ -1,6 +1,6 @@
 <?php
 
-require_once './views/config/Database.php';
+require_once './src/Database.php';
 
 
 /**
