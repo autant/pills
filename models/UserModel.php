@@ -2,11 +2,8 @@
 
 require_once './src/Database.php';
 
-
-/**
- * Summary of UserModel
- */
 class UserModel {
+    private $db;
     private $id;
     private $email;
     private $pseudo;
@@ -19,10 +16,35 @@ class UserModel {
     public function __construct($db) {
         $this->db = $db;
     }
-    
+
     public function getId() { 
         return $this->id; 
     }
+
+    public function getEmail() { 
+        return $this->email; 
+    }
+
+    public function getPseudo() { 
+        return $this->pseudo; 
+    }
+
+    public function getFirstname() { 
+        return $this->firstname; 
+    }
+
+    public function getLastname() { 
+        return $this->lastname; 
+    }
+
+    public function getDdn() { 
+        return $this->ddn; 
+    }
+
+    public function getPassword() {
+        return $this->password;
+    }
+
     public function setEmail($email) {
         $this->email = $email;
     }
@@ -34,6 +56,7 @@ class UserModel {
     public function setPassword($password) {
         $this->password = $password;
     }
+
     public function setFirstname($firstname) {
         $this->firstname = $firstname;
     }
@@ -45,11 +68,7 @@ class UserModel {
     public function setDdn($ddn) {
         $this->ddn = $ddn;
     }
-    
-    public function getPassword() {
-        return $this->password;
-    }
-    
+
 
     public function createUser() {
         $sql = "INSERT INTO utilisateur (email, pseudo, password, firstname, lastname, ddn) VALUES (:email, :pseudo, :password, :firstname, :lastname, :ddn)";
@@ -64,7 +83,7 @@ class UserModel {
     
         return $stmt->execute();
     }
-    
+   /* 
     public function getUserByUsername($username) {
         $db = Database::getInstance()->getConnection();
     
@@ -75,7 +94,7 @@ class UserModel {
     
         return $user ? $user : null;
     }
-    
+    */
     public function getUserByPseudo($pseudo) {
         $query = "SELECT * FROM utilisateur WHERE pseudo = :pseudo";
         $stmt = Database::getInstance()->getConnection()->prepare($query);
@@ -83,6 +102,7 @@ class UserModel {
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+    /*
     public static function getUserco($pseudo, $pass) {
         $pdo = Database::getInstance()->getConnection();
         $query = "SELECT * FROM utilisateur WHERE pseudo = :pseudo and password = :password";
@@ -98,7 +118,7 @@ class UserModel {
         }
         
     }
-
+*/
     public function getUserByEmail($email) {
         $db = Database::getInstance()->getConnection();
         $query = "SELECT * FROM utilisateur WHERE email = :email";

@@ -1,46 +1,52 @@
 <?php
 
 require_once './models/UserModel.php';
+//require_once './views/login.php';
+
 
 class UserController {
 
     public function register() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['email'])) {
-            $userModel = new UserModel(null, 'monemail@mail.com', 'monpseudo', 'monmotdepasse', 'Mon', 'Nom', '2000-01-01');
+            $userModel = new UserModel(null, $_POST['email'], $_POST['pseudo'], password_hash($_POST['password'], PASSWORD_DEFAULT), $_POST['firstname'], $_POST['lastname'], $_POST['ddn']);
 
-            $userModel->setEmail($_POST['email']);
-            $userModel->setPseudo($_POST['pseudo']);
-            $userModel->setPassword(password_hash($_POST['password'], PASSWORD_DEFAULT));
-            $userModel->setFirstname($_POST['firstname']);
-            $userModel->setLastname($_POST['lastname']);
-            $userModel->setDdn($_POST['ddn']);
             $userModel->createUser();
 
             header('Location: index.php');
+            exit;
         } else {
+            require_once 'RegisterController.php';
             require_once './views/register.php';
         }
     }
 
-    public function login($pseudo, $password) {
-        $db = Database::getInstance();
-        $user = new UserModel($db);
+    public function login() {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['pseudo']) && isset($_POST['password'])) {
+            $db = Database::getInstance();
+            $user = new UserModel($db);
 
-        $userData = $user->getUserByPseudo($pseudo);
-    
-        if ($userData && password_verify($password, $userData['password'])) {
-            // L'utilisateur existe et le mot de passe est correct, connecter l'utilisateur en créant une variable de session
-            session_start();
-            $_SESSION['user_pseudo'] = $userData['id'];
-    
-            // Rediriger l'utilisateur vers la page d'accueil
-            header('Location: index.php?action=home');
-            exit;
+            $userData = $user->getUserByPseudo($_POST['pseudo']);
+        
+            if ($userData && password_verify($_POST['password'], $userData['password'])) {
+                // The user exists and the password is correct, log the user in by creating a session variable
+                session_start();
+                $_SESSION['user_id'] = $userData['id'];
+        
+                // Redirect the user to the home page
+                header('Location: index.php?action=home');
+                exit;
+            } else {
+                // The username or password is incorrect, display an error message
+                $errorMessage = 'Email ou mot de passe incorrect';
+                echo $errorMessage;
+                header('Location: index.php?action=register');
+                exit;
+            }
         } else {
-            // Le nom d'utilisateur ou le mot de passe est incorrect, afficher un message d'erreur
-            $errorMessage = 'Email ou mot de passe incorrect';
-            echo $errorMessage;
+            require_once 'LoginController.php';
+            require_once './views/login.php';
+        
         }
-    }
     
+    }
 }
