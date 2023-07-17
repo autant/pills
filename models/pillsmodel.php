@@ -1,22 +1,26 @@
 <?php
 
-// models/TodoModel.php
+// models/PillsModel.php
 
 class PillsModel {
+  
+  private $db;
 
-  private $pdo;
-
-  public function __construct(PDO $pdo) {
-    $this->pdo = $pdo;
+  public function __construct(Database $db) {
+    $this->db = $db;
   }
 
-  public function getAllTodos() {
-    $sql = "SELECT name
-            FROM medictable
-            order by name ASC";
-    $stmt = $this->pdo->prepare($sql);
-    $stmt->execute();
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+  
+
+  public function getMedicName() {
+    $pdo = $this->db->getInstance();
+
+    // Query the database
+    $stmt = $pdo->query('SELECT name FROM medictable');
+    $medic = $stmt->fetch();
+
+    return $medic['name'];
+    var_dump($medic);
   }
 
 }
