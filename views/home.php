@@ -7,7 +7,8 @@ $db = new Database();
 $pillsModel = new PillsModel($db);
 $pillsController = new PillsController($pillsModel);
 
-var_dump($pillsModel); // Ici vous pouvez vérifier le contenu de $pillsModel
+//var_dump($pillsModel); // Ici vous pouvez vérifier le contenu de $pillsModel
 
-$pillsController->display();
+$pillsController->index();
 ?>
+

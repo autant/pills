@@ -1,22 +1,33 @@
 <?php
 
+session_start();
+// pillscontroller.php
 
-// controllers/PillsController.php
+require './models/pillsmodel.php';
 
 class PillsController {
-  
+
   private $model;
-  
-  public function __construct(PillsModel $model) {
-    $this->model = $model;
+
+  public function __construct() {
+    $this->model = new PillsModel();
   }
-  
-  
+
+  public function index() {
+    $userId = $_SESSION['userId']; // Suppose que l'ID de l'utilisateur est stocké dans la session
+    $medics = $this->model->getMedicsByUser($userId);
+    require './views/pills.php';
+  }
+
   public function display() {
-    $medicNames = $this->model->getMedicNames();
-    include './views/pills.php';
+    $userId = $_SESSION['userId']; // Suppose que l'ID de l'utilisateur est stocké dans la session
+    $medics = $this->model->getMedicsByUser($userId);
+    $medicNames = $this->model->getMedicNames(); // Récupère les noms des médicaments
+    require 'views/pillsview.php';
+}
+
 }
 
   
-}
+
 //var_dump($model);
