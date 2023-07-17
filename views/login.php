@@ -21,6 +21,8 @@ if (isset($errorMessage)) {
 </form>
 
 <p>Pas encore inscrit ? <a href="index.php?action=register">Inscrivez-vous ici</a>.</p>
+
+<p><a href="index.php?action=logout">Déconnexion</a>.</p>
 <?php
 // Inclure le fichier de pied de page
 require_once 'footer.php';

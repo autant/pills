@@ -101,6 +101,7 @@ class UserModel {
         $stmt->bindParam(':pseudo', $pseudo);
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
+
     }
     /*
     public static function getUserco($pseudo, $pass) {
