@@ -10,9 +10,19 @@ class PillsModel {
   }
 
   public function getMedicNames() {
-    $query = "SELECT name FROM medictable";
-    $stmt = $this->db->prepare($query);
-    $stmt->execute();
-    return $stmt->fetchAll(PDO::FETCH_COLUMN, 0);
+    try {
+      $query = "SELECT name FROM medictable";
+      $stmt = $this->db->prepare($query);
+      $stmt->execute();
+  
+      $medicNames = [];
+      while ($name = $stmt->fetchColumn()) {
+          $medicNames[] = $name;
+      }
+      return $medicNames;
+    } catch (PDOException $e) {
+      error_log("Erreur de requête à la base de données : " . $e->getMessage(), 0);
+      // Gérez l'exception
+    }
   }
 }
