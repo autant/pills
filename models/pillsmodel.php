@@ -3,24 +3,16 @@
 // models/PillsModel.php
 
 class PillsModel {
-  
   private $db;
 
-  public function __construct(Database $db) {
-    $this->db = $db;
+  public function __construct() {
+    $this->db = Database::getInstance()->getConnection();
   }
 
-  
-
-  public function getMedicName() {
-    $pdo = $this->db->getInstance();
-
-    // Query the database
-    $stmt = $pdo->query('SELECT name FROM medictable');
-    $medic = $stmt->fetch();
-
-    return $medic['name'];
-    var_dump($medic);
+  public function getMedicNames() {
+    $query = "SELECT name FROM medictable";
+    $stmt = $this->db->prepare($query);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_COLUMN, 0);
   }
-
 }

@@ -13,9 +13,10 @@ class PillsController {
   
   
   public function display() {
-
-    $medicName = $this->model->getMedicName();
+    $medicNames = $this->model->getMedicNames();
     include './views/pills.php';
-  }
 }
-var_dump($model);
+
+  
+}
+//var_dump($model);

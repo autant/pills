@@ -9,8 +9,12 @@
   <!-- formulaire ajouté -->
   <form action="traitement.php" method="post">
     <div>
-      <label for="textArea">Zone à remplir :</label>
-      <input type="text" id="textArea" name="textArea" value="<?php echo htmlspecialchars($medicName); ?>">
+      <label for="medicName">Zone à remplir :</label>
+      <select name="medicName" id="medicName">
+        <?php foreach ($medicNames as $medicName): ?>
+            <option value="<?= htmlspecialchars($medicName) ?>"><?= htmlspecialchars($medicName) ?></option>
+        <?php endforeach; ?>
+      </select>
     </div>
     <div>
       <input type="checkbox" id="validate" name="validate" value="validate">
@@ -24,7 +28,5 @@
       <input type="submit" value="Envoyer">
     </div>
   </form>
-
-
 </body>
 </html>
