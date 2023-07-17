@@ -1,6 +1,6 @@
 
 <?php
-require_once './models/pillsmodel.php';
+//require_once './models/pillsmodel.php';
 ?>
 
 <!DOCTYPE html>

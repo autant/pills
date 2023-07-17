@@ -20,6 +20,13 @@ switch($action) {
         require_once 'RegisterController.php';
         //require_once './views/register.php';
         break;
+
+    case 'home':
+        // Afficher la page de connexion
+        //require_once 'HomeController.php';
+        require_once './views/home.php';
+        break;
+    
     case 'logout':
         // Déconnexion de l'utilisateur
         //session_start();
