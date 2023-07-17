@@ -1,21 +1,21 @@
 <?php
 
-require_once './models/UserModel.php';
-
-require_once './src/Database.php';
-
-$userModel = new UserModel(null, '', '', '', '', '', '');
-
-
-$action = isset($_GET['action']) ? $_GET['action'] : '';
-
-switch($action) {
-    case 'login':
-        // Afficher la page de connexion
-        require_once './views/login.php';
-
-        break;
-    case 'register':
+//require_once './models/UserModel.php';
+//
+//require_once './src/Database.php';
+//
+//$userModel = new UserModel(null, '', '', '', '', '', '');
+//
+//
+//$action = isset($_GET['action']) ? $_GET['action'] : '';
+//
+//switch($action) {
+//    case 'login':
+//        // Afficher la page de connexion
+//        require_once './views/login.php';
+//
+//        break;
+//    case 'register':
         // Traitement de l'inscription
         if (!empty($_POST['pseudo'])) {
             $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
@@ -68,18 +68,5 @@ switch($action) {
             // Afficher la page d'enregistrement
             require_once './views/register.php';
         }
-        break;
-    case 'logout':
-        // Déconnexion de l'utilisateur
-        session_start();
-        session_unset();
-        session_destroy();
-        header('Location: index.php');
-        break;
-    default:
-        // Afficher la page d'accueil
-        require_once '../views/home.php';
-        break;
-}
-
+   
 ?>

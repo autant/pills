@@ -95,7 +95,7 @@ class UserModel {
         return $user ? $user : null;
     }
     */
-    public function getUserByPseudo($pseudo) {
+    public static function getUserByPseudo($pseudo) {
         $query = "SELECT * FROM utilisateur WHERE pseudo = :pseudo";
         $stmt = Database::getInstance()->getConnection()->prepare($query);
         $stmt->bindParam(':pseudo', $pseudo);

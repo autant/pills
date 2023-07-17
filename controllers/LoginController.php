@@ -1,13 +1,13 @@
 <?php
 require_once './views/header.php';
-//require_once './src/Database.php';
-require_once './models/UserModel.php'; // Assuming UserModel.php is in the models directory
+require_once './src/Database.php';
+require_once './models/UserModel.php';
 
 if (isset($_POST['submit'])) {
     $pseudo = $_POST['pseudo'];
     $password = $_POST['password'];
 
-    $user = UserModel::getUserByPseudo($pseudo); // Replace getUserco with getUserByPseudo
+    $user = UserModel::getUserByPseudo($pseudo); 
 
     if ($user && password_verify($password, $user->getPassword())) {
         session_start();
