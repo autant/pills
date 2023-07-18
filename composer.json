@@ -1,0 +1,13 @@
+{
+    "name": "autant/pills",
+    "description": "connection_to_pillsapp",
+    "type": "project",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Autant\\Pills\\": "src/"
+        }
+    },
+    "minimum-stability": "stable",
+    "require": {}
+}

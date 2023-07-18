@@ -1,15 +1,14 @@
 <?php
-
-// home.php
-
-require_once './models/pillsmodel.php';
 require_once './controllers/pillscontroleur.php';
+require_once './models/pillsmodel.php';
+require_once './src/Database.php';
 
-$pdo = new PDO('mysql:host=localhost;dbname=pills', 'root', 'Sabrina1211!');
-$model = new PillsModel($pdo);
-$controller = new PillsController($model);
+$db = new Database();
+$pillsModel = new PillsModel($db);
+$pillsController = new PillsController($pillsModel);
 
-$controller->display();
+//var_dump($pillsModel); // Ici vous pouvez vérifier le contenu de $pillsModel
 
-require_once'header.php';
+$pillsController->index();
+?>
 

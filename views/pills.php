@@ -1,23 +1,41 @@
-<?php
-// views/todo.php
+<?php require_once 'header.php'; 
+var_dump($medicNames);
 ?>
 
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Pills</title>
-</head>
-<body>
-  <h1>Pills</h1>
-  
-  <form method="post" action="index.php?action=logout">
-  <button type="submit" name="logout">Déconnexion</button>
-  </form>
 
-  <ul>
-    <?php foreach($todos as $todo): ?>
-      <li><?= $todo['name']; ?></li>
-    <?php endforeach; ?>
-  </ul>
-</body>
-</html>
+  <h1>PILLS</h1>
+  
+  <!-- formulaire ajouté -->
+  <form action="traitement.php" method="post">
+  <div>
+    <label for="medicName">Médicament :</label>
+    <select name="medicName" id="medicName">
+      <?php foreach ($medicNames as $medicName): ?>
+          <option value="<?= htmlspecialchars($medicName) ?>"><?= htmlspecialchars($medicName) ?></option>
+      <?php endforeach; ?>
+    </select>
+  </div>
+  <div>
+    <input type="button" id="addMedic" value="Ajouter au tableau">
+  </div>
+</form>
+
+
+  <!-- Ajout du conteneur du tableau -->
+  <div>
+  <table id="selectedMedics">
+    <tbody>
+        <?php foreach ($medics as $medic): ?>
+        <tr>
+            <td><?= $medic['name'] ?></td>
+            <td><?= $medic['taken'] ? 'Pris' : 'Non pris' ?></td>
+        </tr>
+        <?php endforeach; ?>
+    </tbody>
+  </table>
+  </div>
+ 
+
+  <script src="./src/main.js"></script>
+
+  <?php require_once 'footer.php'; ?>
