@@ -1,7 +1,7 @@
 <?php
 // traitement.php
 
-require_once './models/pillsmodel.php';
+require_once './models/PillsModel.php';
 
 // Créer une nouvelle instance de PillsModel
 $pillsModel = new PillsModel();

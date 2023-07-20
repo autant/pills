@@ -3,3 +3,21 @@
     background-color: gray;
   }
 
+  body {
+    background-image: url("img/fond_ecran.png");
+    background-size: cover;
+    
+  }
+
+  h1 {
+    color: #3498db; 
+    font-family: cursive; 
+    font-size: 4em; 
+    font-weight: bold; 
+    text-align: center;
+    text-shadow: 2px 2px 4px #eb8d8d; 
+    background: #f1f1f1;
+    padding: 15px; 
+    border-radius: 10px; 
+  }
+  

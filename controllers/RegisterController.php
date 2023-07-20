@@ -1,21 +1,5 @@
 <?php
 
-//require_once './models/UserModel.php';
-//
-//require_once './src/Database.php';
-//
-//$userModel = new UserModel(null, '', '', '', '', '', '');
-//
-//
-//$action = isset($_GET['action']) ? $_GET['action'] : '';
-//
-//switch($action) {
-//    case 'login':
-//        // Afficher la page de connexion
-//        require_once './views/login.php';
-//
-//        break;
-//    case 'register':
         // Traitement de l'inscription
         if (!empty($_POST['pseudo'])) {
             $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);

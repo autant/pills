@@ -11,7 +11,7 @@ class PillsModel {
 
   public function getMedicNames() {
     try {
-      $query = "SELECT name FROM medictable"; // Assurez-vous de changer "medictable" par le nom de votre table
+      $query = "SELECT name FROM medictable"; 
       $stmt = $this->db->prepare($query);
       $stmt->execute();
   
@@ -74,4 +74,19 @@ class PillsModel {
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
     
 }
+
+  public function removeMedicFromUser($userId, $medicId) {
+    try {
+        // Préparer la requête SQL
+        $query = "DELETE FROM ordonnance WHERE Id_utilisateur = :userId AND id = :medicId";
+        $stmt = $this->db->prepare($query);
+    
+        // Exécuter la requête SQL
+        $stmt->execute([':userId' => $userId, ':medicId' => $medicId]);
+    } catch (PDOException $e) {
+        error_log("Erreur de requête à la base de données : " . $e->getMessage(), 0);
+        // Gérez l'exception ici
+    }
+  }
+
 }

@@ -2,16 +2,25 @@
 
 require_once './models/UserModel.php';
 //require_once './views/login.php';
-
-
 class UserController {
+
+    private $db;
+
+    public function __construct() {
+        $this->db = Database::getInstance();
+    }
+
 
     public function register() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['email'])) {
             $userModel = new UserModel(null, $_POST['email'], $_POST['pseudo'], password_hash($_POST['password'], PASSWORD_DEFAULT), $_POST['firstname'], $_POST['lastname'], $_POST['ddn']);
-
+    
             $userModel->createUser();
-
+    
+            // Now create an ordonnance for the user
+            $userId = $this->db->lastInsertId();
+            $this->createOrdonnance($userId);
+    
             header('Location: index.php');
             exit;
         } else {
@@ -19,6 +28,17 @@ class UserController {
             require_once './views/register.php';
         }
     }
+    public function createOrdonnance($userId) {
+        try {
+            $query = "INSERT INTO ordonnance (Id_utilisateur) VALUES (:userId)";
+            $stmt = $this->db->prepare($query);
+            $stmt->execute([':userId' => $userId]);
+        } catch (PDOException $e) {
+            error_log("Erreur de requête à la base de données : " . $e->getMessage(), 0);
+            // Gérez l'exception
+        }
+    }
+    
 
     public function login() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['pseudo']) && isset($_POST['password'])) {
@@ -49,4 +69,5 @@ class UserController {
         }
     
     }
+
 }

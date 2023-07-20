@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             var cell1 = row.insertCell(0);
             var cell2 = row.insertCell(1);
+            var cell3 = row.insertCell(2);
 
             cell1.textContent = selectedMedic;
 
@@ -31,6 +32,17 @@ document.addEventListener('DOMContentLoaded', function() {
                 validateMedicInTable(userId, medicId);
             });
             cell2.appendChild(takenButton);
+
+            var removeButton = document.createElement('button');
+            removeButton.textContent = 'Supprimer';
+            removeButton.addEventListener('click', function() {
+                // Supprimer la ligne du tableau
+                tbody.removeChild(row);
+
+                // Envoi d'une requête AJAX pour supprimer un médicament du tableau de l'utilisateur
+                removeMedicFromTable(userId, medicId);
+            });
+            cell3.appendChild(removeButton);
 
             // Envoi d'une requête AJAX pour ajouter un médicament au tableau de l'utilisateur
             addMedicToTable(userId, medicId);
@@ -52,6 +64,17 @@ function addMedicToTable(userId, medicId) {
 // Envoi d'une requête AJAX pour valider un médicament dans le tableau de l'utilisateur
 function validateMedicInTable(userId, medicId) {
     fetch('validateMedic.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ userId: userId, medicId: medicId }),
+    });
+}
+
+// Envoi d'une requête AJAX pour supprimer un médicament du tableau de l'utilisateur
+function removeMedicFromTable(userId, medicId) {
+    fetch('removeMedic.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

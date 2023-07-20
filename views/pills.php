@@ -1,12 +1,12 @@
 <?php require_once 'header.php'; 
-var_dump($medicNames);
+//var_dump($medicNames);
 ?>
 
 
-  <h1>PILLS</h1>
+  <h1>PiLLS</h1>
   
   <!-- formulaire ajouté -->
-  <form action="traitement.php" method="post">
+  <form action="./src/traitement.php" method="post">
   <div>
     <label for="medicName">Médicament :</label>
     <select name="medicName" id="medicName">
